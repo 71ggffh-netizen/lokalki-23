@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#10121f">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Локальные истории">
+<meta property="og:description" content="Выпуск для Олега. Включи звук.">
+<meta property="og:image" content="poster.jpg">
+<title>Локальные истории</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Golos+Text:wght@500;700;800&display=swap">
+<style>
+:root{--bg:#10121f;--paper:#f4ecdc;--ink:#171a2b;--sponge:#ffd53d;--f-d:"Unbounded","Arial Black",sans-serif;--f-b:"Golos Text","Helvetica Neue",Arial,sans-serif;color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:var(--bg);color:#fff;font-family:var(--f-b)}
+body{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:calc(env(safe-area-inset-top,0px) + 14px) 16px calc(env(safe-area-inset-bottom,0px) + 14px);overflow:hidden}
+.wrap{position:relative;height:min(100%,calc((100vw - 32px) * 16 / 9));max-height:calc(100dvh - 80px);aspect-ratio:9/16;border-radius:26px;overflow:hidden;background:#000;box-shadow:0 20px 60px #000a}
+video{width:100%;height:100%;object-fit:cover;display:block}
+.play{position:absolute;inset:0;border:0;background:linear-gradient(180deg,#10121fcc,#10121f99 40%,#10121fdd);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px;text-align:center;cursor:pointer}
+.play.hide{display:none}
+.eyebrow{font:700 12px/1 var(--f-b);letter-spacing:.22em;text-transform:uppercase;color:#aab0d4}
+.ttl{font:800 clamp(30px,9vw,44px)/1 var(--f-d);letter-spacing:-.03em;text-wrap:balance}
+.ttl b{color:var(--sponge)}
+.btn{display:inline-flex;align-items:center;gap:12px;margin-top:6px;padding:16px 26px;border-radius:999px;background:var(--sponge);color:var(--ink);font:800 17px/1 var(--f-b);box-shadow:0 10px 30px #ffd53d44}
+.btn svg{width:20px;height:20px}
+.hint{font:500 13px/1.4 var(--f-b);color:#aab0d4;max-width:26ch}
+.bar{display:flex;gap:18px;font:500 13px/1 var(--f-b);color:#aab0d4}
+.bar a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.bar button{background:none;border:0;color:#fff;font:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <video id="v" src="oleg23.mp4" poster="poster.jpg" playsinline preload="auto"></video>
+    <button class="play" id="play" aria-label="Смотреть">
+      <div class="eyebrow">Локальные истории</div>
+      <div class="ttl">Выпуск<br>для <b>Олега</b></div>
+      <div class="btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>Смотреть со звуком</div>
+      <div class="hint">Историю расскажут Губка Боб, Патрик, Питер и Шрек. 1 мин 35 с.</div>
+    </button>
+  </div>
+  <div class="bar"><button id="again">Ещё раз</button><a href="oleg23.mp4" download="lokalnye-istorii-oleg-23.mp4">Скачать видео</a></div>
+<script>
+const v=document.getElementById("v"),p=document.getElementById("play");
+p.addEventListener("click",()=>{p.classList.add("hide");v.muted=false;v.play().catch(()=>{p.classList.remove("hide")})});
+v.addEventListener("ended",()=>{p.classList.remove("hide");p.querySelector(".btn").lastChild.textContent="Смотреть ещё раз"});
+document.getElementById("again").addEventListener("click",()=>{v.currentTime=0;p.classList.add("hide");v.muted=false;v.play().catch(()=>{})});
+</script>
+</body>
+</html>
